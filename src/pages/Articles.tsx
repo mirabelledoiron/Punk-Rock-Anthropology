@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { articles, articleCategories } from "@/data/articles";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { Badge } from "@/components/ui/badge";
+import { PageMeta } from "@/components/PageMeta";
 import { cn } from "@/lib/utils";
 import { Clock, User, ExternalLink } from "lucide-react";
 
@@ -15,6 +16,10 @@ export default function ArticlesPage() {
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
+      <PageMeta
+        title="Articles"
+        description="Long-form writing on punk history, subcultures, and the people behind the movement."
+      />
       <div className="container mx-auto max-w-4xl">
         <ScrollReveal>
           <h1 className="font-mono text-4xl md:text-5xl font-bold mb-4">
@@ -48,7 +53,10 @@ export default function ArticlesPage() {
         <div className="space-y-6">
           {filtered.map((article, i) => (
             <ScrollReveal key={article.id} delay={Math.min(i * 80, 400)}>
-              <article className="group p-6 rounded-lg bg-card border border-border hover:border-primary/30 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5">
+              <article
+                id={`article-${article.id}`}
+                className="group p-6 rounded-lg bg-card border border-border hover:border-primary/30 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 scroll-mt-28 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
                 <div className="flex items-center gap-3 mb-3">
                   <Badge variant="outline" className="text-[10px] font-mono">
                     {article.category}

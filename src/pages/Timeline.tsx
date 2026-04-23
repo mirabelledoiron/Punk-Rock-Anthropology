@@ -3,6 +3,7 @@ import { timelineEvents, scenes, type Scene } from "@/data/timeline";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { PageMeta } from "@/components/PageMeta";
 import { cn } from "@/lib/utils";
 import { ExternalLink, ChevronDown } from "lucide-react";
 const sceneColors: Record<string, string> = {
@@ -46,6 +47,10 @@ export default function TimelinePage() {
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
+      <PageMeta
+        title="Timeline"
+        description="An interactive timeline of punk rock history from 1965 to 2024, filterable by scene — New York, London, Los Angeles, Washington D.C., and more."
+      />
       <div className="container mx-auto max-w-4xl">
         <ScrollReveal>
           <h1 className="font-mono text-4xl md:text-5xl font-bold mb-4">
@@ -94,8 +99,9 @@ export default function TimelinePage() {
                 direction={i % 2 === 0 ? "left" : "right"}
               >
                 <div
+                  id={`event-${event.id}`}
                   className={cn(
-                    "relative flex flex-col md:flex-row items-start gap-4",
+                    "relative flex flex-col md:flex-row items-start gap-4 scroll-mt-28 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg",
                     i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                   )}
                 >

@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { PageMeta } from "@/components/PageMeta";
 import { Search, ArrowRight } from "lucide-react";
 import { searchArchive, type ArchiveSearchResult } from "@/lib/searchArchive";
 
@@ -38,6 +40,10 @@ export default function SearchPage() {
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
+      <PageMeta
+        title="Search"
+        description="Keyword search across punk timeline events, bands, dictionary terms, and articles."
+      />
       <div className="container mx-auto max-w-3xl">
         <ScrollReveal>
           <div className="text-center mb-10">
@@ -102,7 +108,11 @@ export default function SearchPage() {
             </p>
             {results.map((result, i) => (
               <ScrollReveal key={`${result.type}-${result.title}-${i}`} delay={Math.min(i * 60, 300)}>
-                <div className="p-5 rounded-lg bg-card border border-border hover:border-primary/30 transition-all duration-300">
+                <Link
+                  to={result.href}
+                  aria-label={`View ${result.type}: ${result.title}`}
+                  className="group block p-5 rounded-lg bg-card border border-border hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:flex-wrap sm:gap-2 mb-2">
                     <Badge
                       variant="outline"
@@ -116,7 +126,11 @@ export default function SearchPage() {
                   </div>
                   <h3 className="font-mono text-base font-bold mb-1 break-words">{result.title}</h3>
                   <p className="text-sm text-muted-foreground line-clamp-2">{result.description}</p>
-                </div>
+                  <div className="mt-3 flex items-center gap-1 text-xs font-mono text-primary/70 group-hover:text-primary transition-colors">
+                    <span>Read more</span>
+                    <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                  </div>
+                </Link>
               </ScrollReveal>
             ))}
 

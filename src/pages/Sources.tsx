@@ -1,5 +1,6 @@
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { Badge } from "@/components/ui/badge";
+import { PageMeta } from "@/components/PageMeta";
 import { ExternalLink } from "lucide-react";
 import { sourceCategories } from "@/data/sources";
 
@@ -18,6 +19,10 @@ const typeColors: Record<string, string> = {
 export default function SourcesPage() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
+      <PageMeta
+        title="Sources"
+        description="A bibliography of books, films, documentaries, zines, and archives used throughout Punk Rock Anthropology."
+      />
       <div className="container mx-auto max-w-4xl">
         <ScrollReveal>
           <h1 className="font-mono text-4xl md:text-5xl font-bold mb-4">

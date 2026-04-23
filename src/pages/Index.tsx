@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { Button } from "@/components/ui/button";
-import heroBg from "@/assets/hero-bg.jpg";
+import { PageMeta } from "@/components/PageMeta";
+import heroBgWebp from "@/assets/hero-bg.webp";
+import heroBgJpg from "@/assets/hero-bg.jpg";
 import { useEffect, useState } from "react";
 
 const Index = () => {
@@ -15,16 +17,29 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <PageMeta
+        title="Punk Rock Anthropology"
+        description="Documenting the culture, the music, and the movement that changed everything. A reference archive of punk history spanning 1965–2024."
+        exact
+      />
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Parallax Background */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${heroBg})`,
-            transform: `translateY(${scrollY * 0.3}px)`,
-          }}
-        />
+        <picture>
+          <source srcSet={heroBgWebp} type="image/webp" />
+          <img
+            src={heroBgJpg}
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+            width={1920}
+            height={1088}
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ transform: `translateY(${scrollY * 0.3}px)` }}
+          />
+        </picture>
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">

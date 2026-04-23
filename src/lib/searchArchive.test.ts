@@ -26,4 +26,34 @@ describe("searchArchive", () => {
     const b = searchArchive("ramones").map((h) => h.title);
     expect(a).toEqual(b);
   });
+
+  it("handles natural-language queries by stripping question words", () => {
+    // "Tell me about CBGB" should find CBGB content
+    expect(searchArchive("Tell me about CBGB").length).toBeGreaterThan(0);
+
+    // "Who were the Ramones?" should find Ramones
+    const ramones = searchArchive("Who were the Ramones?");
+    expect(ramones.some((h) => h.title === "Ramones")).toBe(true);
+
+    // "What is straight edge?" should match dictionary/articles
+    expect(searchArchive("What is straight edge?").length).toBeGreaterThan(0);
+  });
+
+  it("ranks multi-token queries by number of tokens matched", () => {
+    // "Women in punk rock" — results matching more tokens should rank higher.
+    // Item with "women" + "punk" in title outranks items matching only "punk" or "rock".
+    const hits = searchArchive("Women in punk rock");
+    expect(hits.length).toBeGreaterThan(0);
+    const top = hits[0];
+    const topText = `${top.title} ${top.description} ${top.meta}`.toLowerCase();
+    expect(topText.includes("women") || topText.includes("woman")).toBe(true);
+  });
+
+  it("returns an href for every result", () => {
+    const hits = searchArchive("punk");
+    expect(hits.length).toBeGreaterThan(0);
+    for (const h of hits) {
+      expect(h.href).toMatch(/^\/(timeline|bands|dictionary|articles)#/);
+    }
+  });
 });

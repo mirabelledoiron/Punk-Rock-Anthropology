@@ -59,6 +59,25 @@ npm run dev
 npm test
 ```
 
+## Performance & Accessibility
+
+- Routes are lazy-loaded — the landing page ships ~66KB gzipped JS; each page is its own 4–10KB chunk.
+- The hero image is served as WebP with a JPEG fallback, with `fetchpriority="high"` on the LCP element.
+- Every page sets its own `<title>` and `<meta name="description">` via the `PageMeta` component.
+- Accessibility is layered: Radix primitives (accessible disclosure + keyboard support), semantic HTML, skip-to-content, per-card focus rings, and a hash-scroll hook that focuses the target element for screen reader users.
+- In development, `@axe-core/react` runs on every render and logs accessibility violations to the browser console.
+
+### Running Lighthouse
+
+```sh
+# Build and preview the production bundle
+npm run build
+npm run preview
+
+# In another shell, run Lighthouse against the preview URL
+npx lighthouse http://localhost:4173 --view
+```
+
 ## License
 
 © Mirabelle Doiron. All rights reserved.

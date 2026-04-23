@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { dictionaryTerms, alphabet } from "@/data/dictionary";
 import { ExternalLink } from "lucide-react";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -8,10 +9,23 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { PageMeta } from "@/components/PageMeta";
 import { cn } from "@/lib/utils";
 
 export default function DictionaryPage() {
   const [activeLetter, setActiveLetter] = useState<string | null>(null);
+  const [openItems, setOpenItems] = useState<string[]>([]);
+  const { hash } = useLocation();
+
+  // If the user arrived via a /dictionary#term-X link, auto-expand that term
+  // so they land on an open definition, not a closed accordion item.
+  useEffect(() => {
+    const match = hash.match(/^#term-(.+)$/);
+    if (match) {
+      const id = match[1];
+      setOpenItems((prev) => (prev.includes(id) ? prev : [...prev, id]));
+    }
+  }, [hash]);
 
   const filtered = activeLetter
     ? dictionaryTerms.filter((t) => t.letter === activeLetter)
@@ -19,6 +33,10 @@ export default function DictionaryPage() {
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
+      <PageMeta
+        title="Dictionary"
+        description="A reference of punk vocabulary, subgenres, movements, and key terms — from anarcho-punk to zines."
+      />
       <div className="container mx-auto max-w-3xl">
         <ScrollReveal>
           <h1 className="font-mono text-4xl md:text-5xl font-bold mb-4">
@@ -61,10 +79,14 @@ export default function DictionaryPage() {
         </ScrollReveal>
 
         {/* Terms */}
-        <Accordion type="multiple">
+        <Accordion type="multiple" value={openItems} onValueChange={setOpenItems}>
           {filtered.map((term, i) => (
             <ScrollReveal key={term.id} delay={Math.min(i * 50, 250)}>
-              <AccordionItem value={term.id} className="border-border">
+              <AccordionItem
+                id={`term-${term.id}`}
+                value={term.id}
+                className="border-border scroll-mt-28"
+              >
                 <AccordionTrigger className="font-mono text-left hover:no-underline hover:text-primary transition-colors">
                   <span>
                     <span className="text-primary mr-2">{term.letter}.</span>

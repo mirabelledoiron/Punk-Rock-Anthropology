@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { archiveItems, archiveTypes } from "@/data/archive";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { Badge } from "@/components/ui/badge";
+import { PageMeta } from "@/components/PageMeta";
 import { cn } from "@/lib/utils";
 import { FileText, Image, Music, Video, File, Newspaper, ExternalLink } from "lucide-react";
 
@@ -24,6 +25,10 @@ export default function ArchivePage() {
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
+      <PageMeta
+        title="Archive"
+        description="Flyers, zines, photos, recordings, and documents from punk history — the artifacts that tell the real story."
+      />
       <div className="container mx-auto max-w-6xl">
         <ScrollReveal>
           <h1 className="font-mono text-4xl md:text-5xl font-bold mb-4">

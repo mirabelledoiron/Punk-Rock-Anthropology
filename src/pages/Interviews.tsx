@@ -1,11 +1,16 @@
 import { interviews } from "@/data/interviews";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { Badge } from "@/components/ui/badge";
+import { PageMeta } from "@/components/PageMeta";
 import { Quote, ExternalLink } from "lucide-react";
 
 export default function InterviewsPage() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
+      <PageMeta
+        title="Interviews"
+        description="First-person accounts from the musicians, writers, and scene members who lived punk. In their own words."
+      />
       <div className="container mx-auto max-w-4xl">
         <ScrollReveal>
           <h1 className="font-mono text-4xl md:text-5xl font-bold mb-4">

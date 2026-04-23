@@ -17,19 +17,23 @@ describe("AppRoutes", () => {
     expect(screen.getByRole("heading", { name: /PUNK ROCK/i })).toBeInTheDocument();
   });
 
-  it("renders search page", () => {
+  it("renders search page", async () => {
     renderAt("/search");
-    expect(screen.getByRole("heading", { name: /search the archive/i })).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { name: /search the archive/i })
+    ).toBeInTheDocument();
   });
 
-  it("renders timeline", () => {
+  it("renders timeline", async () => {
     renderAt("/timeline");
-    expect(screen.getByRole("heading", { name: /punk timeline/i })).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { name: /punk timeline/i })
+    ).toBeInTheDocument();
   });
 
-  it("renders 404 for unknown paths", () => {
+  it("renders 404 for unknown paths", async () => {
     renderAt("/this-route-does-not-exist");
-    expect(screen.getByRole("heading", { name: "404" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "404" })).toBeInTheDocument();
     expect(screen.getByText(/page not found/i)).toBeInTheDocument();
   });
 });

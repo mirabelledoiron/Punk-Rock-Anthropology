@@ -4,6 +4,7 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { PageMeta } from "@/components/PageMeta";
 import { Search, ExternalLink, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -40,6 +41,10 @@ export default function BandsPage() {
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
+      <PageMeta
+        title="Bands"
+        description="A directory of the bands that shaped punk — from the Ramones and Sex Pistols to modern hardcore. Search by name, genre, or city."
+      />
       <div className="container mx-auto max-w-6xl">
         <ScrollReveal>
           <h1 className="font-mono text-4xl md:text-5xl font-bold mb-4">
@@ -65,7 +70,10 @@ export default function BandsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filtered.map((band, i) => (
             <ScrollReveal key={band.id} delay={Math.min(i * 60, 300)} direction="scale">
-              <div className="group p-5 rounded-lg bg-card border border-border hover:border-primary/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 h-full flex flex-col">
+              <div
+                id={`band-${band.id}`}
+                className="group p-5 rounded-lg bg-card border border-border hover:border-primary/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 h-full flex flex-col scroll-mt-28 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
                 <h3 className="font-mono text-lg font-bold mb-1 group-hover:text-primary transition-colors">
                   {band.name}
                 </h3>

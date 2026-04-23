@@ -1,11 +1,16 @@
 import { educationModules } from "@/data/education";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { Badge } from "@/components/ui/badge";
+import { PageMeta } from "@/components/PageMeta";
 import { BookOpen, Clock, ExternalLink } from "lucide-react";
 
 export default function EducationPage() {
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
+      <PageMeta
+        title="Education"
+        description="Structured learning modules on punk history, DIY ethics, subgenres, and the movement's cultural impact."
+      />
       <div className="container mx-auto max-w-5xl">
         <ScrollReveal>
           <h1 className="font-mono text-4xl md:text-5xl font-bold mb-4">
